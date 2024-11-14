@@ -1,47 +1,52 @@
-#  Java Spring Boot Dependency Injection
+# SQL Sorgu Alıştırmaları
 
-### Proje Kurulumu
+Bu hafta SQL sorguları üzerine çalışıyorsunuz. Bugünkü alıştırmada sizin için hazırladığımız veritabanında aşağıda istediğimiz sonuçları elde etmenize yarayan SQL sorgularını oluşturacaksınız.
 
-Projeyi öncelikle forklayın ve clone edin.
-Daha sonra projeyi IntellijIDEA kullanarak açınız. README.md dosyasını dikkatli bir şekilde okuyarak istenenleri yapmaya çalışın.
-Proje sayımız ilerledikçe proje yönetimimizi kolaylaştırmak adına projelerimizi belli klasör kalıplarında saklamak işimizi kolaylaştırmak adına iyi bir alışkanlıktır.
-Örnek bir Lokasyon: Workintech/Sprint_1/Etud.
+# Proje Kurulumu
+Projeyi forklayın ve clonlayın. Tamamladığınızda da pushlayın.
 
-### Hedeflerimiz:
+## Kütüphane Bilgi Sistemi
 
-### Spring Boot Dependency Injection
+Bu veritabanı, bir okulun kütüphanesinden öğrencilerin aldıkları kitapların bilgisini barındırmaktadır.
+* src -> main -> resources altında `test.sql` adında bir doya bulacaksınız.
+* `test.sql` dosyasını projeye başlamadan önce kendi veritabanınızda MUTLAKA ÇALIŞTIRMALISINIZ.
+* `application.properties` dosyasında `spring.datasource.username` karşısına veritabanını bağlanmak için kullandığınız kullanıcı ismini MUTLAKA GİRİNİZ.
+* `application.properties` dosyasında `spring.datasource.password` karşısına veritabanını bağlanmak için kullandığınız şifreyi MUTLAKA GİRİNİZ.
 
- ### Görev 1
- * Maven dependency management sistemini kullanarak tüm dependencyleri install edin.
- * Uygulamanızı  ```8585``` portundan ayağa kaldırın.
- * Tüm endpointlerin önüne ```workintech``` gelmesi için ilgili ```application.properties``` içerisine ilgili düzenlemeyi yapın.
- * Spring devtools kullanarak uygulamanızın her değişim sonrasında kendisini restart etmesini sağlayınız.
- * Uygulamamızda ```main``` metodumuzun bulunduğu paket dışında iki adet daha paket tanımlayınız. ```model``` ve ```tax``` isminde olabilirler.
- * Uygulamamızda ```main``` metodumuzun bulunduğu sınıf dışında kalıcak şekilde ```rest``` isimli bir paket oluşturunuz.
- * ```rest``` paketi içerisinde ````DeveloperController```` isimli bir controller tanımlayınız.
- * ```model``` paketi içerisinde ````Developer```` isminde bir adet class oluşturunuz. ```id, name, salary ve experience``` isimli 4 adet değişken tanımlayınız.
- * experience değeri enum tipinde olmalı JUNIOR, MID ve SENIOR değerlerinden birini almalı.
- * ````Developer```` sınıfı içerisinde tüm ````instance variable```` değerlerini set eden bir adet constructor tanımlayınız.
- * ```Developer``` sınıfını kullanan(ilişkinin nasıl olması gerektiğini siz tanımlamalısınız.) 3 ayrı sınıf tanımlayınız. ````JuniorDeveloper````, ````MidDeveloper````, ````SeniorDeveloper````
- 
- ### Görev 2
- * tax paketinin içerisine bir adet ````Taxable```` isimli interface tanımlayınız.
- * İçerisinde ````getSimpleTaxRate, getMiddleTaxRate, getUpperTaxRate```` isimli bir 3 adet metod tanımlayınız.
- * ````DeveloperTax```` bir adet sınıf yazınız. Taxable interface implement etmeli. ilgili metodları override etmeli.
- * ```getSimpleTaxRate``` 15d dönmeli.  ```getMiddleTaxRate``` 25d dönmeli. ```getUpperTaxRate``` 35d dönmeli.
 
- ### Görev 3
- * DeveloperController sınıfı içerisinde bir adet ```developers``` adında Map tanımlayın. ```Map<Integer, Developer>``` şeklinde değer almalı.
- *  ```@postConstruct``` annotation kullanarak developers map objesini tanımlayınız.
- * DeveloperController sınıfı içerisinde bir adet constructor tanımlanmalı Taxable interface ```Dependency Injection``` yöntemiyle çağırılmalı. DeveloperTax sınıfını çağırmalı.
- * Amacımız CRUD işlemlerini tanımlayan endpointler yazmak. 
- * [GET]/workintech/developers => tüm developers mapinin value değerlerini ```List``` olarak döner.
- * [GET]/workintech/developers/{id} => ilgili id deki developer mapte varsa value değerini döner.
- * [POST]/workintech/developers => ```id, name, salary ve experience``` değerlerini alır, experience tipine bakarak uygun developer objesini oluşturup developers mapine ekler. JuniorDeveloper için salary bilgisinden salary*getSimpleTaxRate() değerini düşmelisiniz. Aynı şekilde MidDeveloper için salary*getMiddleTaxRate(), SeniorDeveloper için  salary*getUpperTaxRate() değerlerini salary bilgisinden düşmelisiniz.
- * [PUT]/workintech/developers/{id} => İlgili id deki map değerini ```Request Body``` içerisinden aldığı değer ile günceller.
- * [DELETE]/workintech/developers/{id} => İlgili id değerini mapten siler.
- * Tüm endpointlerin dönüş değerleri JSON formatında olmalı.
+#Tablolar
+`ogrenci` tablosu öğrencilerin listesini tutar.
+`islem` tablosu öğrencilerin kütüphaneden aldıkları kitapların bilgilerini tutar
+`kitap` tablosu kütüphanedeki kitapların bilgisini tutar
+`yazar` tablosu kitapların yazarları bilgisini tutar
+`tur` tablosu kitapların türlerini tutar.
 
- ### Görev 4
- * Spring Actuators endpointlerini kullanarak /mappings, /health ile uygulamanızın durumunu kontrol edin
- * /info nun çalışabilmesi için application.properties kısmına ```name```, ```description```, ```version``` kısımlarını tanımlayınız.
+Tablo ilişiklerini görmek için [ktphn.png] dosyasına göz atın.
+
+Yazdığınız sorguları buradan test edebilirsiniz: [https://ergineer.com/assets/materials/fkg36so5-kutuphanebilgisistemi-sql/] (update, delete, drop sorguları iptal edilmiştir).
+
+### Görevler
+* Öncelikle aşağıdaki sorguların tümünü yazdıktan sonra veritabanınızda çalıştırınız. Projenin içerisine yazdığınız sorguları eklemenize gerek yoktur.
+* Uygulamadaki testler yazdığınız sorguların tümünün veritabanında çalıştırıldığını varsayarak test edeceklerdir. Bu yüzden aşağıdaki 10 sorgu için yazdığınız queryleri mutlaka veritabanında çalıştırdıktan sonra test kısmına geliniz.
+
+      1) Biyografi türünü tür tablosuna ekleyiniz.
+	
+      2) Nurettin Belek isimli yazarı yazar tablosuna ekleyiniz.
+	
+      3) 10B sınıfındaki öğrencileri 10C sınıfına geçirin.
+	
+      4) Tüm kitapların puanını 5 puan arttırınız.
+	
+      5) Adı Mehmet olan tüm yazarları silin.
+	
+      6) Kişisel Gelişim isimli bir tür oluşturun.
+	
+      7) 'Benim Üniversitelerim' isimli kitabın türünü 'Kişisel Gelişim' yapın.
+	
+      8) Öğrenci tablosunu kontrol etmek amaçlı tüm öğrencileri görüntüleyen "ogrencilistesi" adında bir fonksiyon oluşturun.
+
+      9) kitap tablosuna yeni kitap eklemek için "ekle" adında bir prosedür oluşturun.
+	
+      10) Öğrenci noya göre öğrenci silebilmeyi sağlayan "sil" adında bir prosedür oluşturun.
+
+
